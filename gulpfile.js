@@ -2,7 +2,7 @@ var gulp = require('gulp');
 var stylus = require('gulp-stylus');
 var watch = require('gulp-watch');
 var htmlmin = require('gulp-htmlmin');
-var babel = require("gulp-babel");
+var babel = require('gulp-babel');
 
 gulp.task('html', function () {
 	return gulp.src('src/*.html')
@@ -12,7 +12,7 @@ gulp.task('html', function () {
 
 gulp.task('style', function () {
 	return gulp.src('./src/style/index.styl')
-		.pipe(stylus())
+		.pipe(stylus({compress: true}))
 		.pipe(gulp.dest('./dist/style'));
 });
 
@@ -22,10 +22,9 @@ gulp.task('watch', ['default'], function () {
 	gulp.watch('./src/scripts/**/*.js', ['scripts']);
 });
 
-
 gulp.task('scripts', function () {
 	return gulp.src('./src/scripts/**/*.js')
-		.pipe(babel())
+		.pipe(babel({presets: ['es2015'], minified: true}))
 		.pipe(gulp.dest('./dist/scripts'));
 });
 
